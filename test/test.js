@@ -40,6 +40,10 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
   ],
   invalid: [
     {
+      code: '\'unicorn\'.green;',
+      errors: [{message: 'Avoid using extended native objects'}]
+    },
+    {
       code: '[].custom();',
       errors: [{message: 'Avoid using extended native objects'}]
     },
