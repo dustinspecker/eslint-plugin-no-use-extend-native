@@ -53,7 +53,7 @@ console.log('unicorn'.green);
 // => ESLint will give an error stating 'Avoid using extended native objects'
 ```
 
-More examples can be seen in the [tests](#test/test.js).
+More examples can be seen in the [tests](https://github.com/dustinspecker/eslint-plugin-no-use-extend-native/blob/master/test/test.js).
 
 
 ## LICENSE
