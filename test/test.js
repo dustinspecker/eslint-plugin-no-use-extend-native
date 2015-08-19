@@ -11,6 +11,14 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
     {code: '({}).toString();'},
     {code: '/match_this/.test();'},
     {code: '\'string\'.toString();'},
+    {code: '(\'str\' + \'ing\').toString();'},
+    {code: '(\'str\' + \'i\' + \'ng\').toString();'},
+    {code: '(1 + 1).valueOf();'},
+    {code: '(1 + 1 + 1).valueOf();'},
+    {code: '(1 + \'string\').toString();'},
+    {code: '(/regex/ + /regex/).toString();'},
+    {code: '(/regex/ + 1).toString();'},
+    {code: '([1] + [2]).toString();'},
     {code: '(function testFunction() {}).toString();'},
     {code: 'new Array().toString();'},
     {code: 'new ArrayBuffer().constructor();'},
@@ -57,6 +65,30 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
     },
     {
       code: '\'string\'.custom();',
+      errors: [{message: 'Avoid using extended native objects'}]
+    },
+    {
+      code: '(\'str\' + \'ing\').custom();',
+      errors: [{message: 'Avoid using extended native objects'}]
+    },
+    {
+      code: '(\'str\' + \'i\' + \'ng\').custom();',
+      errors: [{message: 'Avoid using extended native objects'}]
+    },
+    {
+      code: '(1 + \'ing\').custom();',
+      errors: [{message: 'Avoid using extended native objects'}]
+    },
+    {
+      code: '(/regex/ + \'ing\').custom();',
+      errors: [{message: 'Avoid using extended native objects'}]
+    },
+    {
+      code: '(1 + 1).toLowerCase();',
+      errors: [{message: 'Avoid using extended native objects'}]
+    },
+    {
+      code: '(1 + 1 + 1).toLowerCase();',
       errors: [{message: 'Avoid using extended native objects'}]
     },
     {
