@@ -2,28 +2,25 @@
   "name": "eslint-plugin-no-use-extend-native",
   "version": "0.1.2",
   "description": "ESLint plugin to prevent use of extended native objects",
-  "main": "index.js",
   "scripts": {
     "prepublish": "npm test",
     "test": "gulp test",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dustinspecker/eslint-plugin-no-use-extend-native.git"
-  },
+  "repository": "dustinspecker/eslint-plugin-no-use-extend-native",
   "keywords": [
     "eslint",
     "eslintplugin",
     "extend",
-    "native"
+    "native",
+    "prototype"
   ],
   "author": "Dustin Specker",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/dustinspecker/eslint-plugin-no-use-extend-native/issues"
-  },
-  "homepage": "https://github.com/dustinspecker/eslint-plugin-no-use-extend-native#readme",
+  "files": [
+    "index.js",
+    "rules"
+  ],
   "dependencies": {
     "proto-props": "^0.1.0"
   },
