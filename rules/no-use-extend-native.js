@@ -43,10 +43,8 @@ module.exports = function (context) {
 
       if (node.object.type === 'NewExpression') {
         proto = node.object.callee.name;
-      } else if (node.object.type === 'Literal' && node.object.regex) {
-        proto = 'RegExp';
-      } else if (node.object.type === 'Literal' && !node.object.regex) {
-        proto = 'String';
+      } else if (node.object.type === 'Literal') {
+        proto = getType(node.object);
       } else if (node.object.type === 'BinaryExpression') {
         proto = binaryExpressionProduces(node.object);
       } else {
