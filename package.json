@@ -12,7 +12,12 @@
     "type": "git",
     "url": "git+https://github.com/dustinspecker/eslint-plugin-no-use-extend-native.git"
   },
-  "keywords": [],
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "extend",
+    "native"
+  ],
   "author": "Dustin Specker",
   "license": "MIT",
   "bugs": {
