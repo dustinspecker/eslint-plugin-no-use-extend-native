@@ -43,6 +43,18 @@ To modify the single rule, `no-use-extend-native`, add the rule to your `.eslint
 
 The default value is `2`.
 
+With this plugin enabled, ESLint will find issues with using extended native objects:
+```javascript
+var colors = require('colors');
+console.log('unicorn'.green);
+// => ESLint will give an error stating 'Avoid using extended native objects'
+
+[].customFunction();
+// => ESLint will give an error stating 'Avoid using extended native objects'
+```
+
+More examples can be seen in the [tests](#test/test.js).
+
 
 ## LICENSE
-MIT
+MIT © [Dustin Specker](https://github.com/dustinspecker)
