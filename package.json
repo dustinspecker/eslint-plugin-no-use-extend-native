@@ -3,7 +3,6 @@
   "version": "0.1.4",
   "description": "ESLint plugin to prevent use of extended native objects",
   "scripts": {
-    "prepublish": "npm test",
     "test": "gulp test",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
@@ -25,7 +24,7 @@
     "proto-props": "^0.1.0"
   },
   "devDependencies": {
-    "babel": "^5.6.12",
+    "babel-core": "^5.6.12",
     "coveralls": "^2.11.2",
     "eslint": "^1.2.0",
     "eslint-config-dustinspecker": "^0.1.0",

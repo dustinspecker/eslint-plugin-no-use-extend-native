@@ -1,5 +1,5 @@
 'use strict';
-import babelCompiler from 'babel';
+import babelCompiler from 'babel-core';
 import gulp from 'gulp';
 import eslint from 'gulp-eslint';
 import istanbul from 'gulp-istanbul';
