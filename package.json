@@ -3,7 +3,6 @@
   "version": "0.1.4",
   "description": "ESLint plugin to prevent use of extended native objects",
   "scripts": {
-    "prepublish": "npm test",
     "test": "gulp test",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
