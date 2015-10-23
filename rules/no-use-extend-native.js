@@ -1,9 +1,9 @@
 'use strict';
 var protoProps = require('proto-props');
 
-// add missing methods to Error.prototype
+// add missing method to Error.prototype
 // https://nodejs.org/api/errors.html#errors_class_error
-protoProps.Error.push('captureStackTrace', 'stack', 'stackTraceLimit');
+protoProps.Error.push('stack');
 
 /**
  * Return type of value of left or right
