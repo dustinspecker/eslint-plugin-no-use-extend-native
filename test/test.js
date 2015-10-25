@@ -48,7 +48,9 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
     {code: 'new Uint32Array().values();'},
     {code: 'new Uint8ClampedArray().values();'},
     {code: 'new WeakMap().get();'},
-    {code: 'new WeakSet().has();'}
+    {code: 'new WeakSet().has();'},
+    {code: 'new Array()[\'length\']'},
+    {code: 'new Array()[\'toString\']()'}
   ],
   invalid: [
     {
@@ -201,6 +203,14 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
     },
     {
       code: 'new WeakSet().custom();',
+      errors: [{message: 'Avoid using extended native objects'}]
+    },
+    {
+      code: 'new Array()[\'custom\']',
+      errors: [{message: 'Avoid using extended native objects'}]
+    },
+    {
+      code: 'new Array()[\'custom\']()',
       errors: [{message: 'Avoid using extended native objects'}]
     }
   ]

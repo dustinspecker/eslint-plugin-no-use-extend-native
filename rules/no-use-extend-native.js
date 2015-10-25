@@ -55,7 +55,7 @@ module.exports = function (context) {
         proto = node.object.type.replace('Expression', '');
       }
 
-      methodName = node.property.name;
+      methodName = node.property.name || node.property.value;
 
       if (protoProps[proto] && protoProps[proto].indexOf(methodName) < 0) {
         context.report(node, 'Avoid using extended native objects');
