@@ -21,6 +21,7 @@
     "rules"
   ],
   "dependencies": {
+    "get-set-props": "^0.1.0",
     "proto-props": "^0.2.0"
   },
   "devDependencies": {

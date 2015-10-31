@@ -1,9 +1,6 @@
 'use strict';
-var protoProps = require('proto-props');
-
-// add missing method to Error.prototype
-// https://nodejs.org/api/errors.html#errors_class_error
-protoProps.Error.push('stack');
+var getSetProps = require('get-set-props')
+  , protoProps = require('proto-props');
 
 /**
  * Return type of value of left or right
@@ -57,7 +54,8 @@ module.exports = function (context) {
 
       methodName = node.property.name || node.property.value;
 
-      if (protoProps[proto] && protoProps[proto].indexOf(methodName) < 0) {
+      if (getSetProps[proto] && getSetProps[proto].indexOf(methodName) < 0 &&
+          protoProps[proto] && protoProps[proto].indexOf(methodName) < 0) {
         context.report(node, 'Avoid using extended native objects');
       }
     }
