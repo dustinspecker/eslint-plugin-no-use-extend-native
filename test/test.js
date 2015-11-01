@@ -29,7 +29,7 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
     {code: 'new DataView().buffer();'},
     {code: 'new Date().getDate();'},
     {code: 'new Error().message();'},
-    {code: 'new Error().stack();'},
+    {code: 'new Error().stack;'},
     {code: 'new Float32Array().values();'},
     {code: 'new Float64Array().values();'},
     {code: 'new Function().toString();'},
@@ -39,6 +39,7 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
     {code: 'new Map().clear();'},
     {code: 'new Number().toString();'},
     {code: 'new Object().toString();'},
+    {code: 'new Object().toString;'},
     {code: 'new Promise().then();'},
     {code: 'new RegExp().test();'},
     {code: 'new Set().values();'},
@@ -53,6 +54,10 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
     {code: 'new Array()[\'toString\']()'}
   ],
   invalid: [
+    {
+      code: '[].length();',
+      errors: [{message: 'Avoid using extended native objects'}]
+    },
     {
       code: '\'unicorn\'.green;',
       errors: [{message: 'Avoid using extended native objects'}]
