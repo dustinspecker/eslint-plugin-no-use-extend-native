@@ -40,7 +40,8 @@ function binaryExpressionProduces(o) {
 module.exports = function (context) {
   return {
     MemberExpression: function (node) {
-      var methodName, proto, type;
+      var error = false
+        , methodName, proto, type;
 
       if (node.object.type === 'NewExpression') {
         proto = node.object.callee.name;
@@ -58,16 +59,20 @@ module.exports = function (context) {
       if (type === 'ExpressionStatement') {
         if (getSetProps[proto] && getSetProps[proto].indexOf(methodName) < 0 &&
             protoProps[proto] && protoProps[proto].indexOf(methodName) < 0) {
-          context.report(node, 'Avoid using extended native objects');
+          error = true;
         }
       }
 
       if (type === 'CallExpression') {
         if (getSetProps[proto] && getSetProps[proto].indexOf(methodName) > -1) {
-          context.report(node, 'Avoid using extended native objects');
+          error = true;
         } else if (protoProps[proto] && protoProps[proto].indexOf(methodName) < 0) {
-          context.report(node, 'Avoid using extended native objects');
+          error = true;
         }
+      }
+
+      if (error) {
+        context.report(node, 'Avoid using extended native objects');
       }
     }
   };
