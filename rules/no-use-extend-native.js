@@ -64,9 +64,8 @@ module.exports = function (context) {
       }
 
       if (type === 'CallExpression') {
-        if (getSetProps[proto] && getSetProps[proto].indexOf(methodName) > -1) {
-          error = true;
-        } else if (protoProps[proto] && protoProps[proto].indexOf(methodName) < 0) {
+        if (getSetProps[proto] && getSetProps[proto].indexOf(methodName) > -1 ||
+            protoProps[proto] && protoProps[proto].indexOf(methodName) < 0) {
           error = true;
         }
       }
