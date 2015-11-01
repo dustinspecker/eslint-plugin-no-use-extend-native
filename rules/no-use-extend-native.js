@@ -61,18 +61,12 @@ module.exports = function (context) {
         return;
       }
 
-      if (type === 'ExpressionStatement') {
-        if (!isGetSetProp(proto, methodName) &&
-            !isProtoProp(proto, methodName)) {
-          error = true;
-        }
+      if (type === 'ExpressionStatement' && !isGetSetProp(proto, methodName) && !isProtoProp(proto, methodName)) {
+        error = true;
       }
 
-      if (type === 'CallExpression') {
-        if (isGetSetProp(proto, methodName) ||
-            !isProtoProp(proto, methodName)) {
-          error = true;
-        }
+      if (type === 'CallExpression' && (isGetSetProp(proto, methodName) || !isProtoProp(proto, methodName))) {
+        error = true;
       }
 
       if (error) {
