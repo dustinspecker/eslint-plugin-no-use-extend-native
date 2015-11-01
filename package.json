@@ -21,8 +21,9 @@
     "rules"
   ],
   "dependencies": {
-    "get-set-props": "^0.1.0",
-    "proto-props": "^0.2.0"
+    "is-get-set-prop": "^1.0.0",
+    "is-js-type": "^1.0.0",
+    "is-proto-prop": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.12",

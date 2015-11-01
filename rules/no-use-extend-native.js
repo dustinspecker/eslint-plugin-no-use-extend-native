@@ -1,6 +1,7 @@
 'use strict';
-var getSetProps = require('get-set-props')
-  , protoProps = require('proto-props');
+var isGetSetProp = require('is-get-set-prop')
+  , isJsType = require('is-js-type')
+  , isProtoProp = require('is-proto-prop');
 
 /**
  * Return type of value of left or right
@@ -56,16 +57,20 @@ module.exports = function (context) {
       methodName = node.property.name || node.property.value;
       type = node.parent.type;
 
+      if (!isJsType(proto)) {
+        return;
+      }
+
       if (type === 'ExpressionStatement') {
-        if (getSetProps[proto] && getSetProps[proto].indexOf(methodName) < 0 &&
-            protoProps[proto] && protoProps[proto].indexOf(methodName) < 0) {
+        if (!isGetSetProp(proto, methodName) &&
+            !isProtoProp(proto, methodName)) {
           error = true;
         }
       }
 
       if (type === 'CallExpression') {
-        if (getSetProps[proto] && getSetProps[proto].indexOf(methodName) > -1 ||
-            protoProps[proto] && protoProps[proto].indexOf(methodName) < 0) {
+        if (isGetSetProp(proto, methodName) ||
+            !isProtoProp(proto, methodName)) {
           error = true;
         }
       }
