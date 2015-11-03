@@ -49,19 +49,15 @@ module.exports = function (context) {
         proto = getType(node.object);
       } else if (node.object.type === 'BinaryExpression') {
         proto = binaryExpressionProduces(node.object);
-      } else if (node.object.type === 'Identifier') {
+      } else if (node.object.type === 'Identifier' && node.property.name === 'prototype') {
         proto = node.object.name;
+        methodName = node.parent.property.name;
       } else {
         proto = node.object.type.replace('Expression', '');
       }
 
-      methodName = node.property.name || node.property.value;
+      methodName = methodName || node.property.name || node.property.value;
       type = node.parent.type;
-
-      if (methodName === 'prototype') {
-        // Array.prototype.map, etc.
-        methodName = node.parent.property.name;
-      }
 
       if (!isJsType(proto)) {
         return;

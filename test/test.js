@@ -6,6 +6,7 @@ let ruleTester = new RuleTester();
 
 ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
   valid: [
+    'Object.keys()',
     'gulp.task();',
     'Custom.prototype.custom',
     'Array.prototype.map',
