@@ -7,6 +7,9 @@ let ruleTester = new RuleTester();
 ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
   valid: [
     {code: 'gulp.task();'},
+    {code: 'Custom.prototype.custom'},
+    {code: 'Array.prototype.map'},
+    {code: 'Array.prototype.map.call([1,2,3], function (x) { console.log(x); });'},
     {code: '[].push(1);'},
     {code: '({}).toString();'},
     {code: '/match_this/.test();'},
@@ -54,6 +57,10 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
     {code: 'new Array()[\'toString\']()'}
   ],
   invalid: [
+    {
+      code: 'Array.prototype.custom;',
+      errors: [{message: 'Avoid using extended native objects'}]
+    },
     {
       code: '[].length();',
       errors: [{message: 'Avoid using extended native objects'}]

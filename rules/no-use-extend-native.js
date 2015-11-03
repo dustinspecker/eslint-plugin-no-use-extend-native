@@ -49,6 +49,8 @@ module.exports = function (context) {
         proto = getType(node.object);
       } else if (node.object.type === 'BinaryExpression') {
         proto = binaryExpressionProduces(node.object);
+      } else if (node.object.type === 'Identifier') {
+        proto = node.object.name;
       } else {
         proto = node.object.type.replace('Expression', '');
       }
@@ -56,12 +58,18 @@ module.exports = function (context) {
       methodName = node.property.name || node.property.value;
       type = node.parent.type;
 
+      if (methodName === 'prototype') {
+        // Array.prototype.map, etc.
+        methodName = node.parent.property.name;
+      }
+
       if (!isJsType(proto)) {
         return;
       }
 
       if (type === 'ExpressionStatement' && !isGetSetProp(proto, methodName) && !isProtoProp(proto, methodName) ||
-        type === 'CallExpression' && (isGetSetProp(proto, methodName) || !isProtoProp(proto, methodName))) {
+        type === 'CallExpression' && (isGetSetProp(proto, methodName) || !isProtoProp(proto, methodName)) ||
+        type === 'MemberExpression' && !isProtoProp(proto, methodName)) {
         context.report(node, 'Avoid using extended native objects');
       }
     }
