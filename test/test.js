@@ -57,173 +57,50 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
     'new Array()[\'toString\']()'
   ].map(code => ({code})),
   invalid: [
-    {
-      code: 'Array.prototype.custom;',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '[].length();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '\'unicorn\'.green;',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '[].custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '({}).custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '/match_this/.custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '\'string\'.custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '(\'str\' + \'ing\').custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '(\'str\' + \'i\' + \'ng\').custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '(1 + \'ing\').custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '(/regex/ + \'ing\').custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '(1 + 1).toLowerCase();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '(1 + 1 + 1).toLowerCase();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: '(function testFunction() {}).custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Array().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new ArrayBuffer().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Boolean().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new DataView().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Date().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Error().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Float32Array().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Float64Array().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Function().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Int16Array().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Int32Array().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Int8Array().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Map().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Number().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Object().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Promise().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new RegExp().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Set().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new String().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Symbol().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Uint16Array().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Uint32Array().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Uint8Array().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Uint8ClampedArray().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new WeakMap().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new WeakSet().custom();',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Array()[\'custom\']',
-      errors: [{message: 'Avoid using extended native objects'}]
-    },
-    {
-      code: 'new Array()[\'custom\']()',
-      errors: [{message: 'Avoid using extended native objects'}]
-    }
-  ]
+    'Array.prototype.custom;',
+    '[].length();',
+    '\'unicorn\'.green;',
+    '[].custom();',
+    '({}).custom();',
+    '/match_this/.custom();',
+    '\'string\'.custom();',
+    '(\'str\' + \'ing\').custom();',
+    '(\'str\' + \'i\' + \'ng\').custom();',
+    '(1 + \'ing\').custom();',
+    '(/regex/ + \'ing\').custom();',
+    '(1 + 1).toLowerCase();',
+    '(1 + 1 + 1).toLowerCase();',
+    '(function testFunction() {}).custom();',
+    'new Array().custom();',
+    'new ArrayBuffer().custom();',
+    'new Boolean().custom();',
+    'new DataView().custom();',
+    'new Date().custom();',
+    'new Error().custom();',
+    'new Float32Array().custom();',
+    'new Float64Array().custom();',
+    'new Function().custom();',
+    'new Int16Array().custom();',
+    'new Int32Array().custom();',
+    'new Int8Array().custom();',
+    'new Map().custom();',
+    'new Number().custom();',
+    'new Object().custom();',
+    'new Promise().custom();',
+    'new RegExp().custom();',
+    'new Set().custom();',
+    'new String().custom();',
+    'new Symbol().custom();',
+    'new Uint16Array().custom();',
+    'new Uint32Array().custom();',
+    'new Uint8Array().custom();',
+    'new Uint8ClampedArray().custom();',
+    'new WeakMap().custom();',
+    'new WeakSet().custom();',
+    'new Array()[\'custom\']',
+    'new Array()[\'custom\']()'
+  ].map(code => ({
+    code,
+    errors: [{message: 'Avoid using extended native objects'}]
+  }))
 });
