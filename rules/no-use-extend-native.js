@@ -49,7 +49,7 @@ module.exports = function (context) {
         proto = getType(node.object);
       } else if (node.object.type === 'BinaryExpression') {
         proto = binaryExpressionProduces(node.object);
-      } else if (node.object.type === 'Identifier' && node.property.name === 'prototype') {
+      } else if (node.object.type === 'Identifier' && node.property.name === 'prototype' && node.parent.property) {
         proto = node.object.name;
         methodName = node.parent.property.name;
       } else {

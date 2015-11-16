@@ -27,6 +27,7 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
     '(/regex/ + 1).toString();',
     '([1] + [2]).toString();',
     '(function testFunction() {}).toString();',
+    'Test.prototype;',
     'new Array().toString();',
     'new ArrayBuffer().constructor();',
     'new Boolean().toString();',
