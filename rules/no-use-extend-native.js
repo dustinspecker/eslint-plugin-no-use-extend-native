@@ -1,3 +1,5 @@
+/* eslint no-var: 0 */
+/* eslint object-shorthand: 0 */
 'use strict';
 var isGetSetProp = require('is-get-set-prop')
   , isJsType = require('is-js-type')
@@ -41,6 +43,7 @@ function binaryExpressionProduces(o) {
 module.exports = function (context) {
   return {
     MemberExpression: function (node) {
+      /* eslint complexity: [2, 13] */
       var methodName, proto, type;
 
       if (node.object.type === 'NewExpression') {
