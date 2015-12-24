@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-no-use-extend-native",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "ESLint plugin to prevent use of extended native objects",
   "scripts": {
     "test": "gulp test",
