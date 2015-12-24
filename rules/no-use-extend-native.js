@@ -59,7 +59,7 @@ module.exports = function (context) {
       methodName = methodName || node.property.name || node.property.value;
       type = node.parent.type;
 
-      if (!isJsType(proto)) {
+      if (typeof proto !== 'string' || !isJsType(proto)) {
         return;
       }
 
