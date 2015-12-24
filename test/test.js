@@ -2,7 +2,7 @@
 import noUseExtendNativeRule from '../rules/no-use-extend-native';
 import {RuleTester} from 'eslint';
 
-let ruleTester = new RuleTester();
+const ruleTester = new RuleTester();
 
 ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
   valid: [

@@ -11,8 +11,8 @@ const configFiles = './gulpfile.babel.js'
   , srcFiles = ['index.js', 'rules/*.js']
   , testFiles = 'test/*.js';
 
-gulp.task('lint', () => {
-  return gulp.src([configFiles, testFiles].concat(srcFiles))
+gulp.task('lint', () =>
+  gulp.src([configFiles, testFiles].concat(srcFiles))
     .pipe(eslint())
     .pipe(eslint.formatEach('./node_modules/eslint-path-formatter'))
     .pipe(eslint.failOnError())
@@ -21,8 +21,8 @@ gulp.task('lint', () => {
     .pipe(jscs.reporter('fail'))
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    .pipe(jshint.reporter('fail'));
-});
+    .pipe(jshint.reporter('fail'))
+);
 
 gulp.task('build', ['lint']);
 
