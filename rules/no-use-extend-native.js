@@ -66,9 +66,9 @@ module.exports = function (context) {
         return;
       }
 
-      if (type === 'ExpressionStatement' && !isGetSetProp(proto, methodName) && !isProtoProp(proto, methodName) ||
-        type === 'CallExpression' && (isGetSetProp(proto, methodName) || !isProtoProp(proto, methodName)) ||
-        type === 'MemberExpression' && !isProtoProp(proto, methodName)) {
+      if ((type === 'ExpressionStatement' || type === 'MemberExpression') &&
+          !isGetSetProp(proto, methodName) && !isProtoProp(proto, methodName) ||
+        type === 'CallExpression' && (isGetSetProp(proto, methodName) || !isProtoProp(proto, methodName))) {
         context.report(node, 'Avoid using extended native objects');
       }
     }

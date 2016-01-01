@@ -35,6 +35,7 @@ ruleTester.run('no-use-native-extend', noUseExtendNativeRule, {
     'new Date().getDate();',
     'new Error().message();',
     'new Error().stack;',
+    'new Error().stack.slice(1);',
     'new Float32Array().values();',
     'new Float64Array().values();',
     'new Function().toString();',
