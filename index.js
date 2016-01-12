@@ -1,6 +1,6 @@
 /* eslint no-var: 0 */
-'use strict';
-var rule = require('./rules/no-use-extend-native');
+'use strict'
+var rule = require('./rules/no-use-extend-native')
 
 module.exports = {
   rules: {
@@ -9,4 +9,4 @@ module.exports = {
   rulesConfig: {
     'no-use-extend-native': 2
   }
-};
+}
