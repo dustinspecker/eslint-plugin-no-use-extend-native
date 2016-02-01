@@ -1,9 +1,10 @@
+/* eslint func-style: 0 */
 /* eslint no-var: 0 */
 /* eslint object-shorthand: 0 */
-'use strict';
+'use strict'
 var isGetSetProp = require('is-get-set-prop')
   , isJsType = require('is-js-type')
-  , isProtoProp = require('is-proto-prop');
+  , isProtoProp = require('is-proto-prop')
 
 /**
  * Return type of value of left or right
@@ -11,13 +12,13 @@ var isGetSetProp = require('is-get-set-prop')
  * @return {String} - type of o
  */
 function getType(o) {
-  var type = typeof o.value;
+  var type = typeof o.value
 
   if (o.regex) {
-    return 'RegExp';
+    return 'RegExp'
   }
 
-  return type.charAt(0).toUpperCase() + type.slice(1);
+  return type.charAt(0).toUpperCase() + type.slice(1)
 }
 
 /**
@@ -27,50 +28,50 @@ function getType(o) {
   */
 function binaryExpressionProduces(o) {
   var leftType = o.left.type === 'BinaryExpression' ? binaryExpressionProduces(o.left) : getType(o.left)
-    , rightType = o.right.type === 'BinaryExpression' ? binaryExpressionProduces(o.right) : getType(o.right);
+    , rightType = o.right.type === 'BinaryExpression' ? binaryExpressionProduces(o.right) : getType(o.right)
 
   if (leftType === 'String' || rightType === 'String' || leftType === rightType && leftType === 'RegExp') {
-    return 'String';
+    return 'String'
   }
 
   if (leftType === rightType) {
-    return leftType;
+    return leftType
   }
 
-  return 'Unknown';
+  return 'Unknown'
 }
 
 module.exports = function (context) {
   return {
     MemberExpression: function (node) {
       /* eslint complexity: [2, 13] */
-      var methodName, proto, type;
+      var methodName, proto, type
 
       if (node.object.type === 'NewExpression') {
-        proto = node.object.callee.name;
+        proto = node.object.callee.name
       } else if (node.object.type === 'Literal') {
-        proto = getType(node.object);
+        proto = getType(node.object)
       } else if (node.object.type === 'BinaryExpression') {
-        proto = binaryExpressionProduces(node.object);
+        proto = binaryExpressionProduces(node.object)
       } else if (node.object.type === 'Identifier' && node.property.name === 'prototype' && node.parent.property) {
-        proto = node.object.name;
-        methodName = node.parent.property.name;
+        proto = node.object.name
+        methodName = node.parent.property.name
       } else {
-        proto = node.object.type.replace('Expression', '');
+        proto = node.object.type.replace('Expression', '')
       }
 
-      methodName = methodName || node.property.name || node.property.value;
-      type = node.parent.type;
+      methodName = methodName || node.property.name || node.property.value
+      type = node.parent.type
 
       if (typeof proto !== 'string' || !isJsType(proto)) {
-        return;
+        return
       }
 
       if ((type === 'ExpressionStatement' || type === 'MemberExpression') &&
           !isGetSetProp(proto, methodName) && !isProtoProp(proto, methodName) ||
         type === 'CallExpression' && (isGetSetProp(proto, methodName) || !isProtoProp(proto, methodName))) {
-        context.report(node, 'Avoid using extended native objects');
+        context.report(node, 'Avoid using extended native objects')
       }
     }
-  };
-};
+  }
+}

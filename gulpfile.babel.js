@@ -1,30 +1,22 @@
-'use strict';
-import babelCompiler from 'babel-core';
-import gulp from 'gulp';
-import eslint from 'gulp-eslint';
-import istanbul from 'gulp-istanbul';
-import jscs from 'gulp-jscs';
-import jshint from 'gulp-jshint';
-import mocha from 'gulp-mocha';
+'use strict'
+import babelCompiler from 'babel-core'
+import gulp from 'gulp'
+import eslint from 'gulp-eslint'
+import istanbul from 'gulp-istanbul'
+import mocha from 'gulp-mocha'
 
 const configFiles = './gulpfile.babel.js'
   , srcFiles = ['index.js', 'rules/*.js']
-  , testFiles = 'test/*.js';
+  , testFiles = 'test/*.js'
 
 gulp.task('lint', () =>
   gulp.src([configFiles, testFiles].concat(srcFiles))
     .pipe(eslint())
     .pipe(eslint.formatEach('./node_modules/eslint-path-formatter'))
     .pipe(eslint.failOnError())
-    .pipe(jscs())
-    .pipe(jscs.reporter())
-    .pipe(jscs.reporter('fail'))
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
-    .pipe(jshint.reporter('fail'))
-);
+)
 
-gulp.task('build', ['lint']);
+gulp.task('build', ['lint'])
 
 gulp.task('test', ['build'], cb => {
   gulp.src(srcFiles)
@@ -38,6 +30,6 @@ gulp.task('test', ['build'], cb => {
           }
         }))
         .pipe(istanbul.writeReports())
-        .on('end', cb);
-    });
-});
+        .on('end', cb)
+    })
+})
