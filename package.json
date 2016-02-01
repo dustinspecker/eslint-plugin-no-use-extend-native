@@ -3,8 +3,8 @@
   "version": "0.3.4",
   "description": "ESLint plugin to prevent use of extended native objects",
   "scripts": {
-    "test": "gulp test",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "test": "gulp build && nyc ava"
   },
   "repository": "dustinspecker/eslint-plugin-no-use-extend-native",
   "keywords": [
@@ -26,9 +26,8 @@
     "is-proto-prop": "^1.0.0"
   },
   "devDependencies": {
-    "babel-core": "^6.0.12",
+    "ava": "^0.11.0",
     "babel-eslint": "^4.1.3",
-    "babel-preset-es2015": "^6.0.14",
     "coveralls": "^2.11.2",
     "eslint": "^1.2.0",
     "eslint-config-dustinspecker": "^0.3.1",
@@ -36,7 +35,6 @@
     "eslint-plugin-new-with-error": "^1.1.0",
     "gulp": "^3.9.0",
     "gulp-eslint": "^1.0.0",
-    "gulp-istanbul": "^0.10.0",
-    "gulp-mocha": "^2.1.0"
+    "nyc": "^5.5.0"
   }
 }
