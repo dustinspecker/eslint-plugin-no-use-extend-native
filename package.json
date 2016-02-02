@@ -5,7 +5,7 @@
   "scripts": {
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint ./ --ignore-pattern node_modules/ --ignore-pattern lib/ --ignore-pattern ava/",
-    "test": "npm run lint gulp build && nyc ava"
+    "test": "npm run lint && gulp build && nyc ava"
   },
   "repository": "dustinspecker/eslint-plugin-no-use-extend-native",
   "keywords": [
