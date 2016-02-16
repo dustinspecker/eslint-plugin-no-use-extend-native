@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "ava": "^0.11.0",
-    "babel-eslint": "^4.1.3",
+    "babel-eslint": "^5.0.0",
     "coveralls": "^2.11.2",
     "eslint": "^1.10.3",
     "eslint-config-dustinspecker": "^0.3.1",
