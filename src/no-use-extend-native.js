@@ -2,16 +2,16 @@
 /* eslint no-var: 0 */
 /* eslint object-shorthand: 0 */
 'use strict'
-var isGetSetProp = require('is-get-set-prop')
-  , isJsType = require('is-js-type')
-  , isProtoProp = require('is-proto-prop')
+import isGetSetProp from 'is-get-set-prop'
+import isJsType from 'is-js-type'
+import isProtoProp from 'is-proto-prop'
 
 /**
  * Return type of value of left or right
  * @param {Object} o - left or right of node.object
  * @return {String} - type of o
  */
-function getType(o) {
+const getType = o => {
   var type = typeof o.value
 
   if (o.regex) {
@@ -26,8 +26,8 @@ function getType(o) {
   * @param {Object} o - node's object with a BinaryExpression type
   * @return {String} - type of value produced
   */
-function binaryExpressionProduces(o) {
-  var leftType = o.left.type === 'BinaryExpression' ? binaryExpressionProduces(o.left) : getType(o.left)
+const binaryExpressionProduces = o => {
+  const leftType = o.left.type === 'BinaryExpression' ? binaryExpressionProduces(o.left) : getType(o.left)
     , rightType = o.right.type === 'BinaryExpression' ? binaryExpressionProduces(o.right) : getType(o.right)
 
   if (leftType === 'String' || rightType === 'String' || leftType === rightType && leftType === 'RegExp') {
@@ -41,45 +41,41 @@ function binaryExpressionProduces(o) {
   return 'Unknown'
 }
 
-module.exports = function (context) {
-  return {
-    MemberExpression: function (node) {
-      /* eslint complexity: [2, 13] */
-      var isExpression, isFunctionCall, getterSetterCalledAsFunction
-        , methodName, proto, type
-        , unknownGetterSetterOrProtoExpressed, unknownProtoCalledAsFunction
+module.exports = context => ({
+  MemberExpression(node) {
+    /* eslint complexity: [2, 13] */
+    let methodName, proto
 
-      if (node.object.type === 'NewExpression') {
-        proto = node.object.callee.name
-      } else if (node.object.type === 'Literal') {
-        proto = getType(node.object)
-      } else if (node.object.type === 'BinaryExpression') {
-        proto = binaryExpressionProduces(node.object)
-      } else if (node.object.type === 'Identifier' && node.property.name === 'prototype' && node.parent.property) {
-        proto = node.object.name
-        methodName = node.parent.property.name
-      } else {
-        proto = node.object.type.replace('Expression', '')
-      }
+    if (node.object.type === 'NewExpression') {
+      proto = node.object.callee.name
+    } else if (node.object.type === 'Literal') {
+      proto = getType(node.object)
+    } else if (node.object.type === 'BinaryExpression') {
+      proto = binaryExpressionProduces(node.object)
+    } else if (node.object.type === 'Identifier' && node.property.name === 'prototype' && node.parent.property) {
+      proto = node.object.name
+      methodName = node.parent.property.name
+    } else {
+      proto = node.object.type.replace('Expression', '')
+    }
 
-      methodName = methodName || node.property.name || node.property.value
-      type = node.parent.type
+    methodName = methodName || node.property.name || node.property.value
+    const type = node.parent.type
 
-      if (typeof proto !== 'string' || !isJsType(proto)) {
-        return
-      }
+    if (typeof proto !== 'string' || !isJsType(proto)) {
+      return
+    }
 
-      isExpression = type === 'ExpressionStatement' || type === 'MemberExpression'
-      unknownGetterSetterOrProtoExpressed = isExpression &&
-        !isGetSetProp(proto, methodName) && !isProtoProp(proto, methodName)
+    const isExpression = type === 'ExpressionStatement' || type === 'MemberExpression'
+    const unknownGetterSetterOrProtoExpressed = isExpression &&
+      !isGetSetProp(proto, methodName) && !isProtoProp(proto, methodName)
 
-      isFunctionCall = type === 'CallExpression'
-      getterSetterCalledAsFunction = isFunctionCall && isGetSetProp(proto, methodName)
-      unknownProtoCalledAsFunction = isFunctionCall && !isProtoProp(proto, methodName)
+    const isFunctionCall = type === 'CallExpression'
+    const getterSetterCalledAsFunction = isFunctionCall && isGetSetProp(proto, methodName)
+    const unknownProtoCalledAsFunction = isFunctionCall && !isProtoProp(proto, methodName)
 
-      if (unknownGetterSetterOrProtoExpressed || getterSetterCalledAsFunction || unknownProtoCalledAsFunction) {
-        context.report(node, 'Avoid using extended native objects')
-      }
+    if (unknownGetterSetterOrProtoExpressed || getterSetterCalledAsFunction || unknownProtoCalledAsFunction) {
+      context.report(node, 'Avoid using extended native objects')
     }
   }
-}
+})
