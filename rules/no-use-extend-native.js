@@ -45,7 +45,9 @@ module.exports = function (context) {
   return {
     MemberExpression: function (node) {
       /* eslint complexity: [2, 13] */
-      var methodName, proto, type
+      var isExpression, isFunctionCall, getterSetterCalledAsFunction
+        , methodName, proto, type
+        , unknownGetterSetterOrProtoExpressed, unknownProtoCalledAsFunction
 
       if (node.object.type === 'NewExpression') {
         proto = node.object.callee.name
@@ -67,9 +69,15 @@ module.exports = function (context) {
         return
       }
 
-      if ((type === 'ExpressionStatement' || type === 'MemberExpression') &&
-          !isGetSetProp(proto, methodName) && !isProtoProp(proto, methodName) ||
-        type === 'CallExpression' && (isGetSetProp(proto, methodName) || !isProtoProp(proto, methodName))) {
+      isExpression = type === 'ExpressionStatement' || type === 'MemberExpression'
+      unknownGetterSetterOrProtoExpressed = isExpression &&
+        !isGetSetProp(proto, methodName) && !isProtoProp(proto, methodName)
+
+      isFunctionCall = type === 'CallExpression'
+      getterSetterCalledAsFunction = isFunctionCall && isGetSetProp(proto, methodName)
+      unknownProtoCalledAsFunction = isFunctionCall && !isProtoProp(proto, methodName)
+
+      if (unknownGetterSetterOrProtoExpressed || getterSetterCalledAsFunction || unknownProtoCalledAsFunction) {
         context.report(node, 'Avoid using extended native objects')
       }
     }
