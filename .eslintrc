@@ -1,4 +1,7 @@
 {
   "parser": "babel-eslint",
-  "extends": "dustinspecker/esnext"
+  "extends": [
+    "dustinspecker/ava",
+    "dustinspecker/esnext"
+  ]
 }
