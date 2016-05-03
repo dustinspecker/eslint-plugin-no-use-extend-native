@@ -43,7 +43,7 @@ const binaryExpressionProduces = o => {
 
 module.exports = context => ({
   MemberExpression(node) {
-    /* eslint complexity: [2, 13] */
+    /* eslint complexity: [2, 14] */
     let methodName, proto
 
     if (node.object.type === 'NewExpression') {
@@ -62,7 +62,7 @@ module.exports = context => ({
     methodName = methodName || node.property.name || node.property.value
     const type = node.parent.type
 
-    if (typeof proto !== 'string' || !isJsType(proto)) {
+    if (typeof methodName !== 'string' || typeof proto !== 'string' || !isJsType(proto)) {
       return
     }
 

@@ -14,6 +14,7 @@ test('should validate correctly', () => {
       'Array.prototype.map',
       'Array.prototype.map.call([1,2,3], function (x) { console.log(x) })',
       '[].push(1)',
+      '[][0]',
       '({}).toString()',
       '/match_this/.test()',
       '\'string\'.toString()',
