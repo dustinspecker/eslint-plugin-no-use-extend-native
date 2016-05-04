@@ -1,6 +1,3 @@
-/* eslint func-style: 0 */
-/* eslint no-var: 0 */
-/* eslint object-shorthand: 0 */
 'use strict'
 import isGetSetProp from 'is-get-set-prop'
 import isJsType from 'is-js-type'
@@ -12,7 +9,7 @@ import isProtoProp from 'is-proto-prop'
  * @return {String} - type of o
  */
 const getType = o => {
-  var type = typeof o.value
+  const type = typeof o.value
 
   if (o.regex) {
     return 'RegExp'
