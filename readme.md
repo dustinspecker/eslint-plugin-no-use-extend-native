@@ -60,5 +60,23 @@ console.log('unicorn'.green);
 More examples can be seen in the [tests](https://github.com/dustinspecker/eslint-plugin-no-use-extend-native/blob/master/test/test.js).
 
 
+## Usage with no-extend-native
+
+ESLint's [`no-extend-native`][no-extend-native] rule verifies code is not **modifying** a native prototype. e.g., with the `no-extend-native` rule enabled, the following lines are each considered incorrect:
+```javascript
+String.prototype.shortHash = function() { return this.substring(0, 7); };
+Object.defineProperty(Array.prototype, "times", { value: 999 });
+```
+
+`no-use-extend-native` verifies code is not **using** a non-native prototype. e.g., with the `no-use-extend-native` plugin enabled, the following line is considered incorrect:
+```javascript
+"50bda47b09923e045759db8e8dd01a0bacd97370".shortHash() === "50bda47";
+```
+
+The `no-use-extend-native` plugin is designed to work with ESLint's `no-extend-native` rule. `no-extend-native` ensures that native prototypes aren't extended, and should a third party library extend them, `no-use-extend-native` ensures those changes aren't depended upon.
+
+[no-extend-native]: http://eslint.org/docs/rules/no-extend-native
+
+
 ## LICENSE
 MIT © [Dustin Specker](https://github.com/dustinspecker)
