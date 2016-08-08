@@ -17,6 +17,7 @@ test('should validate correctly', () => {
       '[][0]',
       '({}).toString()',
       '/match_this/.test()',
+      '\'foo\'.length',
       '\'string\'.toString()',
       '(1).toFixed()',
       '1..toFixed()',
