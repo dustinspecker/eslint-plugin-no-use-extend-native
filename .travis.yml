@@ -2,11 +2,6 @@ sudo: false
 language: node_js
 node_js:
  - 6
-before_install:
- - npm i -g eslint
- - git clone https://github.com/sindresorhus/ava
 script:
  - npm test
- - npm link
- - eslint --debug --no-eslintrc --plugin no-use-extend-native ava/*/*.js
 after_success: npm run-script coveralls
