@@ -38,27 +38,39 @@ const binaryExpressionProduces = o => {
   return 'Unknown'
 }
 
+/**
+ * Returns the property name and prototype to validate
+ * @param {Object} node - node to examine
+ * @return {Object} - methodName and proto
+ */
+const getMethodNameAndPrototype = node => {
+  let methodName, proto
+
+  if (node.object.type === 'NewExpression') {
+    proto = node.object.callee.name
+  } else if (node.object.type === 'Literal') {
+    proto = getType(node.object)
+  } else if (node.object.type === 'BinaryExpression') {
+    proto = binaryExpressionProduces(node.object)
+  } else if (node.object.type === 'Identifier' && node.property.name === 'prototype' && node.parent.property) {
+    proto = node.object.name
+    methodName = node.parent.property.name
+  } else {
+    proto = node.object.type.replace('Expression', '')
+  }
+
+  methodName = methodName || node.property.name || node.property.value
+
+  return {methodName, proto}
+}
+
 module.exports = context => ({
   MemberExpression(node) {
-    /* eslint complexity: [2, 15] */
-    let methodName, proto
-
-    if (node.object.type === 'NewExpression') {
-      proto = node.object.callee.name
-    } else if (node.object.type === 'Literal') {
-      proto = getType(node.object)
-    } else if (node.object.type === 'BinaryExpression') {
-      proto = binaryExpressionProduces(node.object)
-    } else if (node.object.type === 'Identifier' && node.property.name === 'prototype' && node.parent.property) {
-      proto = node.object.name
-      methodName = node.parent.property.name
-    } else {
-      proto = node.object.type.replace('Expression', '')
-    }
-
-    methodName = methodName || node.property.name || node.property.value
+    /* eslint complexity: [2, 9] */
     const isArgToParent = node.parent.arguments && node.parent.arguments.indexOf(node) > -1
     const type = isArgToParent ? node.type : node.parent.type
+
+    const {methodName, proto} = getMethodNameAndPrototype(node)
 
     if (typeof methodName !== 'string' || typeof proto !== 'string' || !isJsType(proto)) {
       return
