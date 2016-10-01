@@ -44,24 +44,24 @@ const binaryExpressionProduces = o => {
  * @return {Object} - methodName and proto
  */
 const getMethodNameAndPrototype = node => {
-  let methodName, proto
+  let methodName, prototype
 
   if (node.object.type === 'NewExpression') {
-    proto = node.object.callee.name
+    prototype = node.object.callee.name
   } else if (node.object.type === 'Literal') {
-    proto = getType(node.object)
+    prototype = getType(node.object)
   } else if (node.object.type === 'BinaryExpression') {
-    proto = binaryExpressionProduces(node.object)
+    prototype = binaryExpressionProduces(node.object)
   } else if (node.object.type === 'Identifier' && node.property.name === 'prototype' && node.parent.property) {
-    proto = node.object.name
+    prototype = node.object.name
     methodName = node.parent.property.name
   } else {
-    proto = node.object.type.replace('Expression', '')
+    prototype = node.object.type.replace('Expression', '')
   }
 
   methodName = methodName || node.property.name || node.property.value
 
-  return {methodName, proto}
+  return {methodName, prototype}
 }
 
 module.exports = context => ({
@@ -70,21 +70,21 @@ module.exports = context => ({
     const isArgToParent = node.parent.arguments && node.parent.arguments.indexOf(node) > -1
     const type = isArgToParent ? node.type : node.parent.type
 
-    const {methodName, proto} = getMethodNameAndPrototype(node)
+    const {methodName, prototype} = getMethodNameAndPrototype(node)
 
-    if (typeof methodName !== 'string' || typeof proto !== 'string' || !isJsType(proto)) {
+    if (typeof methodName !== 'string' || typeof prototype !== 'string' || !isJsType(prototype)) {
       return
     }
 
     const isExpression = type === 'ExpressionStatement' || type === 'MemberExpression'
-    const unknownGetterSetterOrProtoExpressed = isExpression &&
-      !isGetSetProp(proto, methodName) && !isProtoProp(proto, methodName)
+    const unknownGetterSetterOrPrototypeExpressed = isExpression &&
+      !isGetSetProp(prototype, methodName) && !isProtoProp(prototype, methodName)
 
     const isFunctionCall = type === 'CallExpression'
-    const getterSetterCalledAsFunction = isFunctionCall && isGetSetProp(proto, methodName)
-    const unknownProtoCalledAsFunction = isFunctionCall && !isProtoProp(proto, methodName)
+    const getterSetterCalledAsFunction = isFunctionCall && isGetSetProp(prototype, methodName)
+    const unknownPrototypeCalledAsFunction = isFunctionCall && !isProtoProp(prototype, methodName)
 
-    if (unknownGetterSetterOrProtoExpressed || getterSetterCalledAsFunction || unknownProtoCalledAsFunction) {
+    if (unknownGetterSetterOrPrototypeExpressed || getterSetterCalledAsFunction || unknownPrototypeCalledAsFunction) {
       context.report(node, 'Avoid using extended native objects')
     }
   }
