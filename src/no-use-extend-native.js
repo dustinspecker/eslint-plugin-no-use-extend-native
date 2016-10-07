@@ -1,6 +1,7 @@
 'use strict'
 import isGetSetProp from 'is-get-set-prop'
 import isJsType from 'is-js-type'
+import isObjProp from 'is-obj-prop'
 import isProtoProp from 'is-proto-prop'
 
 /**
@@ -55,6 +56,8 @@ const getMethodNameAndPrototype = node => {
   } else if (node.object.type === 'Identifier' && node.property.name === 'prototype' && node.parent.property) {
     prototype = node.object.name
     methodName = node.parent.property.name
+  } else if (node.property.type === 'Identifier' && node.object.type === 'Identifier') {
+    prototype = node.object.name
   } else {
     prototype = node.object.type.replace('Expression', '')
   }
@@ -78,11 +81,12 @@ module.exports = context => ({
 
     const isExpression = type === 'ExpressionStatement' || type === 'MemberExpression'
     const unknownGetterSetterOrPrototypeExpressed = isExpression &&
-      !isGetSetProp(prototype, methodName) && !isProtoProp(prototype, methodName)
+      !isGetSetProp(prototype, methodName) && !isProtoProp(prototype, methodName) && !isObjProp(prototype, methodName)
 
     const isFunctionCall = type === 'CallExpression'
     const getterSetterCalledAsFunction = isFunctionCall && isGetSetProp(prototype, methodName)
-    const unknownPrototypeCalledAsFunction = isFunctionCall && !isProtoProp(prototype, methodName)
+    const unknownPrototypeCalledAsFunction = isFunctionCall && !isProtoProp(prototype, methodName) &&
+      !isObjProp(prototype, methodName)
 
     if (unknownGetterSetterOrPrototypeExpressed || getterSetterCalledAsFunction || unknownPrototypeCalledAsFunction) {
       context.report(node, 'Avoid using extended native objects')

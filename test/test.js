@@ -7,6 +7,7 @@ const ruleTester = new AvaRuleTester(test)
 
 ruleTester.run('no-use-extend-native/no-use-extend-native', noUseExtendNativeRule, {
   valid: [
+    'Object.keys',
     'Object.keys()',
     'gulp.task()',
     'Custom.prototype.custom',
@@ -69,6 +70,8 @@ ruleTester.run('no-use-extend-native/no-use-extend-native', noUseExtendNativeRul
   ].map(code => ({code})),
   invalid: [
     'Array.prototype.custom',
+    'Array.to',
+    'Array.to()',
     '[].length()',
     '\'unicorn\'.green',
     '[].custom()',
