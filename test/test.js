@@ -7,6 +7,9 @@ const ruleTester = new AvaRuleTester(test)
 
 ruleTester.run('no-use-extend-native/no-use-extend-native', noUseExtendNativeRule, {
   valid: [
+    'error.plugin',
+    'error.plugn()',
+    'array.custom',
     'Object.keys',
     'Object.keys()',
     'gulp.task()',
