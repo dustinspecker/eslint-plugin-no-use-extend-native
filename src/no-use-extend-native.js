@@ -40,31 +40,31 @@ const binaryExpressionProduces = o => {
 }
 
 /**
- * Returns the property name and prototype to validate
+ * Returns the JS type and property name
  * @param {Object} node - node to examine
- * @return {Object} - methodName and proto
+ * @return {Object} - jsType and propertyName
  */
-const getMethodNameAndPrototype = node => {
-  let methodName, prototype
+const getJsTypeAndPropertyName = node => {
+  let propertyName, jsType
 
   if (node.object.type === 'NewExpression') {
-    prototype = node.object.callee.name
+    jsType = node.object.callee.name
   } else if (node.object.type === 'Literal') {
-    prototype = getType(node.object)
+    jsType = getType(node.object)
   } else if (node.object.type === 'BinaryExpression') {
-    prototype = binaryExpressionProduces(node.object)
+    jsType = binaryExpressionProduces(node.object)
   } else if (node.object.type === 'Identifier' && node.property.name === 'prototype' && node.parent.property) {
-    prototype = node.object.name
-    methodName = node.parent.property.name
+    jsType = node.object.name
+    propertyName = node.parent.property.name
   } else if (node.property.type === 'Identifier' && node.object.type === 'Identifier') {
-    prototype = node.object.name
+    jsType = node.object.name
   } else {
-    prototype = node.object.type.replace('Expression', '')
+    jsType = node.object.type.replace('Expression', '')
   }
 
-  methodName = methodName || node.property.name || node.property.value
+  propertyName = propertyName || node.property.name || node.property.value
 
-  return {methodName, prototype}
+  return {propertyName, jsType}
 }
 
 /**
@@ -95,11 +95,11 @@ module.exports = context => ({
   MemberExpression(node) {
     /* eslint complexity: [2, 9] */
     const isArgToParent = node.parent.arguments && node.parent.arguments.indexOf(node) > -1
-    const type = isArgToParent ? node.type : node.parent.type
+    const usageType = isArgToParent ? node.type : node.parent.type
 
-    const {methodName, prototype} = getMethodNameAndPrototype(node)
+    const {propertyName, jsType} = getJsTypeAndPropertyName(node)
 
-    if (isInvalid(prototype, methodName, type)) {
+    if (isInvalid(jsType, propertyName, usageType)) {
       context.report(node, 'Avoid using extended native objects')
     }
   }
