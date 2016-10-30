@@ -67,6 +67,30 @@ const getMethodNameAndPrototype = node => {
   return {methodName, prototype}
 }
 
+/**
+ * Determine if a jsType's usage of propertyName is valid
+ * @param {String} jsType - the JS type to validate
+ * @param {String} propertyName - the property name to validate usage of on jsType
+ * @param {String} usageType - how propertyName is being used
+ * @return {Boolean} - is the usage invalid?
+ */
+const isInvalid = (jsType, propertyName, usageType) => {
+  if (typeof propertyName !== 'string' || typeof jsType !== 'string' || !isJsType(jsType)) {
+    return false
+  }
+
+  const isExpression = usageType === 'ExpressionStatement' || usageType === 'MemberExpression'
+  const unknownGetterSetterOrjsTypeExpressed = isExpression &&
+    !isGetSetProp(jsType, propertyName) && !isProtoProp(jsType, propertyName) && !isObjProp(jsType, propertyName)
+
+  const isFunctionCall = usageType === 'CallExpression'
+  const getterSetterCalledAsFunction = isFunctionCall && isGetSetProp(jsType, propertyName)
+  const unknownjsTypeCalledAsFunction = isFunctionCall && !isProtoProp(jsType, propertyName) &&
+    !isObjProp(jsType, propertyName)
+
+  return unknownGetterSetterOrjsTypeExpressed || getterSetterCalledAsFunction || unknownjsTypeCalledAsFunction
+}
+
 module.exports = context => ({
   MemberExpression(node) {
     /* eslint complexity: [2, 9] */
@@ -75,20 +99,7 @@ module.exports = context => ({
 
     const {methodName, prototype} = getMethodNameAndPrototype(node)
 
-    if (typeof methodName !== 'string' || typeof prototype !== 'string' || !isJsType(prototype)) {
-      return
-    }
-
-    const isExpression = type === 'ExpressionStatement' || type === 'MemberExpression'
-    const unknownGetterSetterOrPrototypeExpressed = isExpression &&
-      !isGetSetProp(prototype, methodName) && !isProtoProp(prototype, methodName) && !isObjProp(prototype, methodName)
-
-    const isFunctionCall = type === 'CallExpression'
-    const getterSetterCalledAsFunction = isFunctionCall && isGetSetProp(prototype, methodName)
-    const unknownPrototypeCalledAsFunction = isFunctionCall && !isProtoProp(prototype, methodName) &&
-      !isObjProp(prototype, methodName)
-
-    if (unknownGetterSetterOrPrototypeExpressed || getterSetterCalledAsFunction || unknownPrototypeCalledAsFunction) {
+    if (isInvalid(prototype, methodName, type)) {
       context.report(node, 'Avoid using extended native objects')
     }
   }
