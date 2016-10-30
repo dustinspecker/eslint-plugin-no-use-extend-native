@@ -16,6 +16,8 @@ ruleTester.run('no-use-extend-native/no-use-extend-native', noUseExtendNativeRul
     'Custom.prototype.custom',
     'Array.prototype.map',
     'Array.prototype.map.call([1,2,3], function (x) { console.log(x) })',
+    'Array.apply',
+    'Array.call(null, 1, 2, 3)',
     '[].push(1)',
     '[][0]',
     '({}).toString()',

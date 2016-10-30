@@ -99,7 +99,7 @@ module.exports = context => ({
 
     const {propertyName, jsType} = getJsTypeAndPropertyName(node)
 
-    if (isInvalid(jsType, propertyName, usageType)) {
+    if (isInvalid(jsType, propertyName, usageType) && isInvalid('Function', propertyName, usageType)) {
       context.report(node, 'Avoid using extended native objects')
     }
   }
