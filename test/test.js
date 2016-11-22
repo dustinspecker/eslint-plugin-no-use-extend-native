@@ -10,6 +10,7 @@ ruleTester.run('no-use-extend-native/no-use-extend-native', noUseExtendNativeRul
     'error.plugin',
     'error.plugn()',
     'array.custom',
+    'Object.assign()',
     'Object.keys',
     'Object.keys()',
     'gulp.task()',
