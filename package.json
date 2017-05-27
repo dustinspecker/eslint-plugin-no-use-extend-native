@@ -35,7 +35,7 @@
     "coveralls": "^2.11.2",
     "eslint": "^3.2.2",
     "eslint-ava-rule-tester": "^2.0.0",
-    "eslint-config-dustinspecker": "^0.5.0",
+    "eslint-config-dustinspecker": "^2.0.1",
     "eslint-path-formatter": "^0.1.1",
     "eslint-plugin-new-with-error": "^1.1.0",
     "nyc": "^8.3.0"
