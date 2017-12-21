@@ -1,4 +1,6 @@
 # eslint-plugin-no-use-extend-native
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/dustinspecker/eslint-plugin-no-use-extend-native.svg)](https://greenkeeper.io/)
 [![NPM version](https://badge.fury.io/js/eslint-plugin-no-use-extend-native.svg)](https://badge.fury.io/js/eslint-plugin-no-use-extend-native)
 [![Build Status](https://travis-ci.org/dustinspecker/eslint-plugin-no-use-extend-native.svg?branch=master)](https://travis-ci.org/dustinspecker/eslint-plugin-no-use-extend-native)
 [![Coverage Status](https://img.shields.io/coveralls/dustinspecker/eslint-plugin-no-use-extend-native.svg)](https://coveralls.io/r/dustinspecker/eslint-plugin-no-use-extend-native?branch=master)
