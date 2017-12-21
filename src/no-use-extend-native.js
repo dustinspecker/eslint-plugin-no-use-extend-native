@@ -26,7 +26,7 @@ const getType = o => {
   */
 const binaryExpressionProduces = o => {
   const leftType = o.left.type === 'BinaryExpression' ? binaryExpressionProduces(o.left) : getType(o.left)
-    , rightType = o.right.type === 'BinaryExpression' ? binaryExpressionProduces(o.right) : getType(o.right)
+  const rightType = o.right.type === 'BinaryExpression' ? binaryExpressionProduces(o.right) : getType(o.right)
 
   if (leftType === 'String' || rightType === 'String' || leftType === rightType && leftType === 'RegExp') {
     return 'String'
