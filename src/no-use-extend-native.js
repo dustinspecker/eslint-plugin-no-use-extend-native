@@ -20,10 +20,10 @@ const getType = o => {
 }
 
 /**
-  * Returns type of binary expression result
-  * @param {Object} o - node's object with a BinaryExpression type
-  * @return {String} - type of value produced
-  */
+ * Returns type of binary expression result
+ * @param {Object} o - node's object with a BinaryExpression type
+ * @return {String} - type of value produced
+ */
 const binaryExpressionProduces = o => {
   const leftType = o.left.type === 'BinaryExpression' ? binaryExpressionProduces(o.left) : getType(o.left)
   const rightType = o.right.type === 'BinaryExpression' ? binaryExpressionProduces(o.right) : getType(o.right)
