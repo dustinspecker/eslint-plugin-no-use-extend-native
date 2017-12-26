@@ -48,24 +48,38 @@ const binaryExpressionProduces = o => {
 const getJsTypeAndPropertyName = node => {
   let propertyName, jsType
 
-  if (node.object.type === 'NewExpression') {
-    jsType = node.object.callee.name
-  } else if (node.object.type === 'Literal') {
-    jsType = getType(node.object)
-  } else if (node.object.type === 'BinaryExpression') {
-    jsType = binaryExpressionProduces(node.object)
-  } else if (node.object.type === 'Identifier' && node.property.name === 'prototype' && node.parent.property) {
-    jsType = node.object.name
-    propertyName = node.parent.property.name
-  } else if (node.property.type === 'Identifier' && node.object.type === 'Identifier') {
-    jsType = node.object.name
-  } else {
-    jsType = node.object.type.replace('Expression', '')
+  switch (node.object.type) {
+    case 'NewExpression':
+      jsType = node.object.callee.name
+      break
+    case 'Literal':
+      jsType = getType(node.object)
+      break
+    case 'BinaryExpression':
+      jsType = binaryExpressionProduces(node.object)
+      break
+    case 'Identifier':
+      if (node.property.name === 'prototype' && node.parent.property) {
+        jsType = node.object.name
+        propertyName = node.parent.property.name
+      } else {
+        jsType = node.object.name
+      }
+      break
+    default:
+      jsType = node.object.type.replace('Expression', '')
   }
 
   propertyName = propertyName || node.property.name || node.property.value
 
   return {propertyName, jsType}
+}
+
+const isUnkownGettSetterOrJsTypeExpressed = (jsType, propertyName, usageType) => {
+  const isExpression = usageType === 'ExpressionStatement' || usageType === 'MemberExpression'
+
+  return isExpression && !isGetSetProp(jsType, propertyName) &&
+    !isProtoProp(jsType, propertyName) && !isObjProp(jsType, propertyName)
 }
 
 /**
@@ -80,12 +94,11 @@ const isInvalid = (jsType, propertyName, usageType) => {
     return false
   }
 
-  const isExpression = usageType === 'ExpressionStatement' || usageType === 'MemberExpression'
-  const unknownGetterSetterOrjsTypeExpressed = isExpression &&
-    !isGetSetProp(jsType, propertyName) && !isProtoProp(jsType, propertyName) && !isObjProp(jsType, propertyName)
+  const unknownGetterSetterOrjsTypeExpressed = isUnkownGettSetterOrJsTypeExpressed(jsType, propertyName, usageType)
 
   const isFunctionCall = usageType === 'CallExpression'
   const getterSetterCalledAsFunction = isFunctionCall && isGetSetProp(jsType, propertyName)
+
   const unknownjsTypeCalledAsFunction = isFunctionCall && !isProtoProp(jsType, propertyName) &&
     !isObjProp(jsType, propertyName)
 
