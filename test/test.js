@@ -24,6 +24,8 @@ ruleTester.run('no-use-extend-native/no-use-extend-native', noUseExtendNativeRul
     '({}).toString()',
     '/match_this/.test()',
     '\'foo\'.length',
+    '\'hi\'.padEnd',
+    '\'hi\'.padEnd()',
     'console.log(\'foo\'.length)',
     'console.log(\'foo\'.toString)',
     'console.log(\'foo\'.toString())',
