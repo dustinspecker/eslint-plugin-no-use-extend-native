@@ -108,6 +108,16 @@ const isInvalid = (jsType, propertyName, usageType) => {
 module.exports = context => ({
   MemberExpression(node) {
     /* eslint complexity: [2, 9] */
+    if (node.computed && node.property.type === 'Identifier') {
+      /**
+       * handles cases like {}[i][j]
+       * not enough information to identify type of variable in computed properties
+       * so ignore false positives by not performing any checks
+       */
+
+      return
+    }
+
     const isArgToParent = node.parent.arguments && node.parent.arguments.indexOf(node) > -1
     const usageType = isArgToParent ? node.type : node.parent.type
 
