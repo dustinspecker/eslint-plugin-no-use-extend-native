@@ -33,23 +33,32 @@ In your `.eslintrc` file add the plugin as such:
 }
 ```
 
-To modify the single rule, `no-use-extend-native`, add the rule to your `.eslintrc` as such:
+To modify the single rule, `no-use-extend-native`, add the rule to your `.eslintrc.*` as such:
 ```javascript
 {
   plugins: [
     'no-use-extend-native'
   ],
   rules: {
-    'no-use-extend-native/no-use-extend-native': 0
+    'no-use-extend-native/no-use-extend-native': 1
   }
 }
 ```
 
 The default value is `2`.
 
+If you want the default, you can also just use the following instead of
+all of the above:
+
+```javascript
+{
+  extends: ['plugin:no-use-extend-native/recommended']
+}
+```
+
 With this plugin enabled, ESLint will find issues with using extended native objects:
 ```javascript
-var colors = require('colors');
+const colors = require('colors');
 console.log('unicorn'.green);
 // => ESLint will give an error stating 'Avoid using extended native objects'
 
