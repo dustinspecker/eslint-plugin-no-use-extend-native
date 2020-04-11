@@ -105,26 +105,33 @@ const isInvalid = (jsType, propertyName, usageType) => {
   return unknownGetterSetterOrjsTypeExpressed || getterSetterCalledAsFunction || unknownjsTypeCalledAsFunction
 }
 
-module.exports = context => ({
-  MemberExpression(node) {
-    /* eslint complexity: [2, 9] */
-    if (node.computed && node.property.type === 'Identifier') {
-      /**
-       * handles cases like {}[i][j]
-       * not enough information to identify type of variable in computed properties
-       * so ignore false positives by not performing any checks
-       */
+module.exports = {
+  meta: {
+    type: 'problem'
+  },
+  create(context) {
+    return {
+      MemberExpression(node) {
+        /* eslint complexity: [2, 9] */
+        if (node.computed && node.property.type === 'Identifier') {
+          /**
+           * handles cases like {}[i][j]
+           * not enough information to identify type of variable in computed properties
+           * so ignore false positives by not performing any checks
+           */
 
-      return
-    }
+          return
+        }
 
-    const isArgToParent = node.parent.arguments && node.parent.arguments.indexOf(node) > -1
-    const usageType = isArgToParent ? node.type : node.parent.type
+        const isArgToParent = node.parent.arguments && node.parent.arguments.indexOf(node) > -1
+        const usageType = isArgToParent ? node.type : node.parent.type
 
-    const {propertyName, jsType} = getJsTypeAndPropertyName(node)
+        const {propertyName, jsType} = getJsTypeAndPropertyName(node)
 
-    if (isInvalid(jsType, propertyName, usageType) && isInvalid('Function', propertyName, usageType)) {
-      context.report(node, 'Avoid using extended native objects')
+        if (isInvalid(jsType, propertyName, usageType) && isInvalid('Function', propertyName, usageType)) {
+          context.report(node, 'Avoid using extended native objects')
+        }
+      }
     }
   }
-})
+}
