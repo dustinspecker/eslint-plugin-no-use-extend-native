@@ -16,6 +16,9 @@
   "repository": "https://github.com/dustinspecker/eslint-plugin-no-use-extend-native",
   "bugs": "https://github.com/dustinspecker/eslint-plugin-no-use-extend-native/issues",
   "homepage": "https://github.com/dustinspecker/eslint-plugin-no-use-extend-native",
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "keywords": [
     "eslint",
     "eslintplugin",
