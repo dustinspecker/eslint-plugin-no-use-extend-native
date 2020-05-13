@@ -105,7 +105,7 @@ const isInvalid = (jsType, propertyName, usageType) => {
   return unknownGetterSetterOrjsTypeExpressed || getterSetterCalledAsFunction || unknownjsTypeCalledAsFunction
 }
 
-module.exports = {
+export default {
   meta: {
     type: 'problem'
   },
