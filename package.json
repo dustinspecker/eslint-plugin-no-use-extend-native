@@ -5,7 +5,7 @@
   "scripts": {
     "compile": "babel src --out-dir rules",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "lint": "eslint ./ --ignore-pattern node_modules/ --ignore-pattern rules/ --ignore-pattern ava/",
+    "lint": "eslint .",
     "test": "npm run compile && npm run lint && nyc ava"
   },
   "ava": {
