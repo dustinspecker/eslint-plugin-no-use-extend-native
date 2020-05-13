@@ -44,6 +44,7 @@ ruleTester.run('no-use-extend-native/no-use-extend-native', noUseExtendNativeRul
     '(\'str\' + \'ing\').toString()',
     '(\'str\' + \'i\' + \'ng\').toString()',
     '(1 + 1).valueOf()',
+    '(1 + 1 + (1 + 1)).valueOf()',
     '(1 + 1 + 1).valueOf()',
     '(1 + \'string\').toString()',
     '(/regex/ + /regex/).toString()',
