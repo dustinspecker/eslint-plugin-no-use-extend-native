@@ -3,7 +3,7 @@
   "version": "0.5.0",
   "description": "ESLint plugin to prevent use of extended native objects",
   "scripts": {
-    "compile": "babel src --out-dir rules",
+    "compile": "babel src --source-maps --out-dir rules",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint .",
     "test": "npm run compile && npm run lint && nyc ava"
