@@ -45,6 +45,7 @@
     "@babel/cli": "^7.8.4",
     "@babel/preset-env": "^7.9.6",
     "ava": "^3.8.2",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "coveralls": "^3.1.0",
     "eslint": "^7.0.0",
     "eslint-ava-rule-tester": "^4.0.0",
