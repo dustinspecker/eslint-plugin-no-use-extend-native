@@ -1,9 +1,11 @@
 'use strict'
 import AvaRuleTester from 'eslint-ava-rule-tester'
-import noUseExtendNativeRule from '../rules/no-use-extend-native'
+import noUseExtendNative from '..'
 import test from 'ava'
 
 const ruleTester = new AvaRuleTester(test)
+
+const noUseExtendNativeRule = noUseExtendNative.rules['no-use-extend-native']
 
 ruleTester.run('no-use-extend-native/no-use-extend-native', noUseExtendNativeRule, {
   valid: [
