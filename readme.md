@@ -1,6 +1,6 @@
 # eslint-plugin-no-use-extend-native
 [![NPM version](https://badge.fury.io/js/eslint-plugin-no-use-extend-native.svg)](https://badge.fury.io/js/eslint-plugin-no-use-extend-native)
-[![Coverage Status](https://img.shields.io/coveralls/dustinspecker/eslint-plugin-no-use-extend-native.svg)](https://coveralls.io/r/dustinspecker/eslint-plugin-no-use-extend-native?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/dustinspecker/eslint-plugin-no-use-extend-native/badge.svg?branch=main)](https://coveralls.io/github/dustinspecker/eslint-plugin-no-use-extend-native?branch=main)
 [![Code Climate](https://codeclimate.com/github/dustinspecker/eslint-plugin-no-use-extend-native/badges/gpa.svg)](https://codeclimate.com/github/dustinspecker/eslint-plugin-no-use-extend-native)
 
 > ESLint plugin to prevent use of extended native objects
