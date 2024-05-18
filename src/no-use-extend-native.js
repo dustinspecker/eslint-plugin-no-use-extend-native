@@ -1,8 +1,8 @@
 'use strict'
-import isGetSetProp from 'is-get-set-prop'
-import isJsType from 'is-js-type'
-import isObjProp from 'is-obj-prop'
-import isProtoProp from 'is-proto-prop'
+const isGetSetProp = require('is-get-set-prop')
+const isJsType = require('is-js-type')
+const isObjProp = require('is-obj-prop')
+const isProtoProp = require('is-proto-prop')
 
 /**
  * Return type of value of left or right
@@ -105,7 +105,7 @@ const isInvalid = (jsType, propertyName, usageType) => {
   return unknownGetterSetterOrjsTypeExpressed || getterSetterCalledAsFunction || unknownjsTypeCalledAsFunction
 }
 
-export default {
+module.exports = {
   meta: {
     type: 'problem'
   },

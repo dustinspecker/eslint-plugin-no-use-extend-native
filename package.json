@@ -3,15 +3,9 @@
   "version": "0.5.0",
   "description": "ESLint plugin to prevent use of extended native objects",
   "scripts": {
-    "compile": "babel src --source-maps --out-dir rules",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint .",
-    "test": "npm run compile && npm run lint && nyc ava"
-  },
-  "ava": {
-    "require": [
-      "esm"
-    ]
+    "test": "npm run lint && nyc ava"
   },
   "repository": "https://github.com/dustinspecker/eslint-plugin-no-use-extend-native",
   "bugs": "https://github.com/dustinspecker/eslint-plugin-no-use-extend-native/issues",
@@ -33,7 +27,7 @@
   "license": "MIT",
   "files": [
     "index.js",
-    "rules"
+    "src"
   ],
   "dependencies": {
     "is-get-set-prop": "^1.0.0",
@@ -42,17 +36,13 @@
     "is-proto-prop": "^2.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
-    "@babel/preset-env": "^7.9.6",
     "ava": "^3.8.2",
-    "babel-plugin-add-module-exports": "^1.0.2",
     "coveralls": "^3.1.0",
     "eslint": "^7.0.0",
     "eslint-ava-rule-tester": "^4.0.0",
     "eslint-config-dustinspecker": "^5.0.0",
     "eslint-path-formatter": "^0.1.1",
     "eslint-plugin-new-with-error": "^2.0.0",
-    "esm": "^3.2.25",
     "nyc": "^15.0.1"
   }
 }
