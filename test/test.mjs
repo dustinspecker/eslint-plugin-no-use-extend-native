@@ -1,7 +1,6 @@
-'use strict'
-const AvaRuleTester = require('eslint-ava-rule-tester')
-const noUseExtendNative = require('..')
-const test = require('ava')
+import AvaRuleTester from 'eslint-ava-rule-tester'
+import noUseExtendNative from '../index.js'
+import test from 'ava'
 
 const ruleTester = new AvaRuleTester(test)
 
