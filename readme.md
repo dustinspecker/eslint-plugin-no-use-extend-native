@@ -25,11 +25,13 @@ In your `eslint.config.js` file add the plugin as such:
 const eslintPluginNoUseExtendNative = require('eslint-plugin-no-use-extend-native')
 
 module.exports = [
-  plugins: {
-    'no-use-extend-native': eslintPluginNoUseExtendNative,
-  },
-  rules: {
-    'no-use-extend-native/no-use-extend-native': 2,
+  {
+    plugins: {
+      'no-use-extend-native': eslintPluginNoUseExtendNative,
+    },
+    rules: {
+      'no-use-extend-native/no-use-extend-native': 2,
+    },
   },
 ]
 ```
