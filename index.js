@@ -1,17 +1,28 @@
 /* eslint no-var: 0 */
 'use strict'
-var rule = require('./src/no-use-extend-native')
+const rule = require('./src/no-use-extend-native')
+const {name, version} = require('./package.json')
 
-module.exports = {
+const plugin = {
+  meta: {
+    name,
+    version
+  },
   rules: {
     'no-use-extend-native': rule
   },
-  configs: {
-    recommended: {
-      plugins: ['no-use-extend-native'],
-      rules: {
-        'no-use-extend-native/no-use-extend-native': 2
-      }
+  configs: {},
+}
+
+Object.assign(plugin.configs, {
+  recommended: {
+    plugins: {
+      'no-use-extend-native': plugin
+    },
+    rules: {
+      'no-use-extend-native/no-use-extend-native': 2
     }
   }
-}
+})
+
+module.exports = plugin

@@ -19,37 +19,30 @@ npm install --save-dev eslint-plugin-no-use-extend-native
 ```
 
 ## Usage
-In your `.eslintrc` file add the plugin as such:
+In your `eslint.config.js` file add the plugin as such:
 
 ```javascript
-{
-  plugins: [
-    'no-use-extend-native'
-  ]
-}
-```
+const eslintPluginNoUseExtendNative = require('eslint-plugin-no-use-extend-native')
 
-To modify the single rule, `no-use-extend-native`, add the rule to your `.eslintrc.*` as such:
-```javascript
-{
-  plugins: [
-    'no-use-extend-native'
-  ],
+module.exports = [
+  plugins: {
+    'no-use-extend-native': eslintPluginNoUseExtendNative,
+  },
   rules: {
-    'no-use-extend-native/no-use-extend-native': 1
-  }
-}
+    'no-use-extend-native/no-use-extend-native': 2,
+  },
+]
 ```
 
-The default value is `2`.
-
-If you want the default, you can also just use the following instead of
+If you want the default of the single rule being enabled as an error, you can also just use the following instead of
 all of the above:
 
 ```javascript
-{
-  extends: ['plugin:no-use-extend-native/recommended']
-}
+const eslintPluginNoUseExtendNative = require('eslint-plugin-no-use-extend-native')
+
+module.exports = [
+  eslintPluginNoUseExtendNative.configs.recommended,
+]
 ```
 
 With this plugin enabled, ESLint will find issues with using extended native objects:
