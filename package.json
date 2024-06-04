@@ -31,10 +31,10 @@
     "src"
   ],
   "dependencies": {
-    "is-get-set-prop": "^1.0.0",
-    "is-js-type": "^2.0.0",
-    "is-obj-prop": "^1.0.0",
-    "is-proto-prop": "^2.0.0"
+    "is-get-set-prop": "^2.0.0",
+    "is-js-type": "^3.0.0",
+    "is-obj-prop": "^2.0.0",
+    "is-proto-prop": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",
