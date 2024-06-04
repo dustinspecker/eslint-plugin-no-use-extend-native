@@ -1,8 +1,7 @@
-'use strict'
-const isGetSetProp = require('is-get-set-prop')
-const isJsType = require('is-js-type')
-const isObjProp = require('is-obj-prop')
-const isProtoProp = require('is-proto-prop')
+import isGetSetProp from 'is-get-set-prop'
+import isJsType from 'is-js-type'
+import isObjProp from 'is-obj-prop'
+import isProtoProp from 'is-proto-prop'
 
 /**
  * Return type of value of left or right
@@ -105,9 +104,13 @@ const isInvalid = (jsType, propertyName, usageType) => {
   return unknownGetterSetterOrjsTypeExpressed || getterSetterCalledAsFunction || unknownjsTypeCalledAsFunction
 }
 
-module.exports = {
+export default {
   meta: {
-    type: 'problem'
+    type: 'problem',
+    messages: {
+      message: 'Avoid using extended native objects',
+    },
+    schema: [],
   },
   create(context) {
     return {
@@ -129,7 +132,7 @@ module.exports = {
         const {propertyName, jsType} = getJsTypeAndPropertyName(node)
 
         if (isInvalid(jsType, propertyName, usageType) && isInvalid('Function', propertyName, usageType)) {
-          context.report(node, 'Avoid using extended native objects')
+          context.report({node, messageId: 'message'})
         }
       }
     }

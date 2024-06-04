@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "@babel/plugin-syntax-import-attributes"
+  ],
+  "parserOpts": {
+    "plugins": [
+      "@babel/plugin-syntax-import-assertions"
+    ]
+  }
+}
