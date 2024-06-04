@@ -6,7 +6,10 @@
     "lint": "eslint .",
     "test": "npm run lint && c8 ava"
   },
-  "repository": "https://github.com/dustinspecker/eslint-plugin-no-use-extend-native",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dustinspecker/eslint-plugin-no-use-extend-native.git"
+  },
   "bugs": "https://github.com/dustinspecker/eslint-plugin-no-use-extend-native/issues",
   "homepage": "https://github.com/dustinspecker/eslint-plugin-no-use-extend-native",
   "type": "module",
