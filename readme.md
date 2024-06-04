@@ -4,8 +4,6 @@
 
 > ESLint plugin to prevent use of extended native objects
 
-*Uses [Sindre Sorhus](https://github.com/sindresorhus)'s [proto-props](https://github.com/sindresorhus/proto-props)*
-
 ## Install
 First, install ESLint via
 ```
