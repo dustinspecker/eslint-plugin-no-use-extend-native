@@ -22,9 +22,9 @@ npm install --save-dev eslint-plugin-no-use-extend-native
 In your `eslint.config.js` file add the plugin as such:
 
 ```javascript
-const eslintPluginNoUseExtendNative = require('eslint-plugin-no-use-extend-native')
+import eslintPluginNoUseExtendNative from 'eslint-plugin-no-use-extend-native'
 
-module.exports = [
+export default [
   {
     plugins: {
       'no-use-extend-native': eslintPluginNoUseExtendNative,
@@ -40,16 +40,16 @@ If you want the default of the single rule being enabled as an error, you can al
 all of the above:
 
 ```javascript
-const eslintPluginNoUseExtendNative = require('eslint-plugin-no-use-extend-native')
+import eslintPluginNoUseExtendNative from 'eslint-plugin-no-use-extend-native'
 
-module.exports = [
+export default [
   eslintPluginNoUseExtendNative.configs.recommended,
 ]
 ```
 
 With this plugin enabled, ESLint will find issues with using extended native objects:
 ```javascript
-const colors = require('colors');
+import colors from 'colors';
 console.log('unicorn'.green);
 // => ESLint will give an error stating 'Avoid using extended native objects'
 

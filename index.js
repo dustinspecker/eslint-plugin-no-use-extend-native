@@ -1,7 +1,7 @@
-/* eslint no-var: 0 */
-'use strict'
-const rule = require('./src/no-use-extend-native')
-const {name, version} = require('./package.json')
+import rule from './src/no-use-extend-native.js'
+import pkg from './package.json' with {type: 'json'}
+
+const {name, version} = pkg
 
 const plugin = {
   meta: {
@@ -25,4 +25,4 @@ Object.assign(plugin.configs, {
   }
 })
 
-module.exports = plugin
+export default plugin
