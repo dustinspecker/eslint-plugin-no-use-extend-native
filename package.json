@@ -33,6 +33,7 @@
     "index.js",
     "src"
   ],
+  "exports": "./index.js",
   "dependencies": {
     "is-get-set-prop": "^2.0.0",
     "is-js-type": "^3.0.0",
