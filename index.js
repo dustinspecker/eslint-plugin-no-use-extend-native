@@ -16,6 +16,7 @@ const plugin = {
 
 Object.assign(plugin.configs, {
   recommended: {
+    name: 'no-use-extend-native/recommended',
     plugins: {
       'no-use-extend-native': plugin
     },
