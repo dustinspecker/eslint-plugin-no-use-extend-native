@@ -80,7 +80,9 @@ ruleTester.run('no-use-extend-native/no-use-extend-native', noUseExtendNativeRul
     'new WeakMap().get()',
     'new WeakSet().has()',
     'new Array()[\'length\']',
-    'new Array()[\'toString\']()'
+    'new Array()[\'toString\']()',
+    'Map.groupBy',
+    'Object.groupBy',
   ].map(code => ({code})),
   invalid: [
     'Array.prototype.custom',
